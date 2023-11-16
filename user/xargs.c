@@ -39,7 +39,7 @@ main(int argc, char *argv[]){
 
 	// Keep reading lines from stdint separating them into args
 	// & executing the tool
-  while(read(0, &b, sizeof(char)) > 0){
+	while(read(0, &b, sizeof(char)) > 0){
 	  if(i>=BUFSZ){
 			fprintf(2, "xargs: Argument too long\n");
 			exit(1);
