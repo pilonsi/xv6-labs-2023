@@ -27,6 +27,11 @@ main(int argc, char *argv[]){
 		exit(1);
 	}
 
+	if(argc > MAXARG){
+		fprintf(2, "xargs: Too many arguments\n");
+		exit(1);
+	}
+
 	// Copy the tool to be invoked and its arguments to the new
 	// argv vector
 	for(i=1; i<argc; i++){
@@ -45,6 +50,11 @@ main(int argc, char *argv[]){
 			exit(1);
 		}
 
+		if(cargc>=MAXARG){
+			fprintf(2, "xargs: Too many arguments\n");
+			exit(1);
+		}
+
 		if(b == '\n'){
 			cargv[cargc] = malloc(i + 1);	
 			memcpy(cargv[cargc], buf, i);
@@ -55,8 +65,17 @@ main(int argc, char *argv[]){
 			if(child==0){
 				exec(cargv[0], cargv);
 				fprintf(2, "xargs: exec %s failed\n", cargv[0]);
+				exit(1);
 			}
-			wait(&child);
+			if(child==-1){
+				fprintf(2, "xargs: fork failed\n");
+				exit(1);
+			}
+
+			if(wait(&child)==-1){
+				fprintf(2, "xargs: wait failed\n");
+				exit(1);
+			};
 			resetargs(&cargc, &argc, cargv);
 			cargc = argc - 1;
 			i = 0;
