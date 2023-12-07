@@ -91,3 +91,14 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+uint64
+sys_trace(void)
+{
+	int tmask;
+
+	argint(0, &tmask);
+	myproc()->tmask = tmask;
+
+	return 0;
+}
