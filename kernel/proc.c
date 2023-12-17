@@ -689,3 +689,18 @@ procdump(void)
     printf("\n");
   }
 }
+
+// Get number of taken processes
+// Iterate over the whole proc array and count the not UNUSED procs
+uint64
+getnproc(void)
+{
+  struct proc *p;
+	uint64 n = 0;
+
+  for(p = proc; p < &proc[NPROC]; p++) {
+    if(p->state != UNUSED)
+			n++;
+  }
+  return n;
+}
