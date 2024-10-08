@@ -66,6 +66,10 @@ sys_sleep(void)
     }
     sleep(&ticks, &tickslock);
   }
+
+	// Print backtrace for traps lab
+	backtrace();
+
   release(&tickslock);
   return 0;
 }
