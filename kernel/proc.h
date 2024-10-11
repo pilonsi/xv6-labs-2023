@@ -109,4 +109,6 @@ struct proc {
 	int aticks;                  // Tick interval for sigalarm
 	uint64 ahandler;             // Handler function for sigalarm
 	int acount;                  // Ticks passed since last alarm
+	struct trapframe atrapframe; // Trapframe to save execution prior to ahandler
+	int alock;                   // Lock to avoid reentering the handler routine
 };

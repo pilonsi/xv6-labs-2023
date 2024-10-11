@@ -79,9 +79,11 @@ usertrap(void)
   // give up the CPU if this is a timer interrupt.
 	// traps lab: also perform alarm upkeep
   if(which_dev == 2)
-		if ((++(p->acount) == p->aticks) && (p->aticks != 0)) {
+		if ((++(p->acount) >= p->aticks) && (p->aticks != 0) && !p->alock) {
+			p->alock = 1;
 			p->acount = 0;
-			p->trapframe->epc = p->ahandler;		
+			memmove(&p->atrapframe, p->trapframe, sizeof(struct trapframe));
+			p->trapframe->epc = p->ahandler;
 		}
     yield();
 
