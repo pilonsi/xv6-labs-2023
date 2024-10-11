@@ -104,4 +104,9 @@ struct proc {
   struct file *ofile[NOFILE];  // Open files
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
+
+	// traps lab
+	int aticks;                  // Tick interval for sigalarm
+	uint64 ahandler;             // Handler function for sigalarm
+	int acount;                  // Ticks passed since last alarm
 };

@@ -200,7 +200,7 @@ endif
 ifeq ($(LAB),traps)
 UPROGS += \
 	$U/_call\
-	$U/_asmex\
+	$U/_alarmtest\
 	$U/_bttest
 endif
 

@@ -67,7 +67,7 @@ sys_sleep(void)
     sleep(&ticks, &tickslock);
   }
 
-	// Print backtrace for traps lab
+	// print backtrace for traps lab
 	backtrace();
 
   release(&tickslock);
@@ -94,4 +94,18 @@ sys_uptime(void)
   xticks = ticks;
   release(&tickslock);
   return xticks;
+}
+
+uint64
+sys_sigalarm(void)
+{
+	argint(0, &(myproc()->aticks));
+	argaddr(1, &(myproc()->ahandler));
+	return 0;
+}
+
+uint64
+sys_sigreturn(void)
+{
+	return 0;
 }
